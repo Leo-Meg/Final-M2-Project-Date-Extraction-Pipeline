@@ -1,20 +1,28 @@
 # Final-M2-Project-Date-Extraction-Pipeline
 
-This repository contains the implementation of an automated date extraction system for French administrative documents, developed as part of the NLP in Industry final project at Université Paris Cité M2 NLP.
+This repository contains the implementation of an automated date extraction system for French administrative documents, developed as part of the NLP in Industry final project at Université Paris Cité M2 NLP. The other students I did this work with are Xu Sun, Dan Hou and Haeeul Hwang.
 
-**Group Members:**
-- Xu Sun
-- Dan Hou
-- Haeeul Hwang
-- Léo Mégret
 
-## Introduction
+
+## Table of contents
+
+1. [Pipeline Components]
+2. [Usage]
+3. [Prerequisites](#prereq)
+4. [Installation](#install)
+5. [Execution pipeline](#pipeline)
+- [Step 0 – build the graph](#step0)
+- [Step 1 – Node2Vec embeddings](#step1)
+- [Step 2 – Translation & lexical embeddings](#step2)
+- [Step 3 – Example retrieval](#step3)
+- [Step 4 – Five‑shot generation](#step4)
+8. [Generated artefacts](#artefacts)
 
 Our pipeline aims to efficiently extract dates from French administrative documents through several key steps:
 
 ## Pipeline Components
 
-### 1. Data Preprocessing (`1_dataset_rebuild.py`)
+### Step 1. Data Preprocessing (`1_dataset_rebuild.py`)
 The first step focuses on preparing high-quality data for NER and LLM processing:
 
 - **Asynchronous Data Collection**
@@ -36,7 +44,7 @@ The first step focuses on preparing high-quality data for NER and LLM processing
     - Normalized text content
     - Raw text content
 
-### 2. Date Entity Extraction (`2_ner.py`)
+### Step 2. Date Entity Extraction (`2_ner.py`)
 Extracts candidate dates using NER:
 
 - **Model**: Utilizes CamemBERT-NER (fine-tuned for French date extraction)
@@ -53,7 +61,7 @@ Extracts candidate dates using NER:
   - Filters and validates dates
   - Maintains extraction context
 
-### 3. LLM-based Date Selection (`4_llm_reference.py`)
+### Step 3. LLM-based Date Selection (`4_llm_reference.py`)
 Uses LLM reasoning to select the most accurate publication date:
 
 - **Model**: Qwen2 5.7B/14B
@@ -210,3 +218,8 @@ If you encounter any installation issues:
 ### Tools
 - VLLM: High-performance LLM inference engine
 - Flash Attention: Efficient attention computation
+
+```text
+Megret L., 2024. Final Project of Master 2, Automated Date Extraction Pipeline. Université Paris Cité, Master Sciences du langage - Parcours : Computational Linguistics
+Domaine : Sciences humaines et sociales
+```
