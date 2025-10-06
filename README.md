@@ -7,21 +7,22 @@ This repository contains the implementation of an automated date extraction syst
 ## Table of contents
 
 1. [Pipeline Components](#pipeline)
-- [Step 1 – Data Preprocessing](#step1)
-- [Step 2 – Data Entity Extraction](#step2)
-- [Step 3 – LLM-based Data Selection](#step3)
-- [Step 4 – Date Format Cleaning](#step4)
-- [Evaluation](#eval)
-3. [Usage](#usage)
-4. [Prerequisites](#prereq)
-5. [Installation](#install)
-6. [Execution pipeline](#pipeline)
-- [Step 0 – build the graph](#step0)
-- [Step 1 – Node2Vec embeddings](#step1)
-- [Step 2 – Translation & lexical embeddings](#step2)
-- [Step 3 – Example retrieval](#step3)
-- [Step 4 – Five‑shot generation](#step4)
-8. [Generated artefacts](#artefacts)
+   - [Step 1 – Data Preprocessing](#step1)
+   - [Step 2 – Data Entity Extraction](#step2)
+   - [Step 3 – LLM-based Data Selection](#step3)
+   - [Step 4 – Date Format Cleaning](#step4)
+   - [Evaluation](#eval)
+2. [Environment Setup](#env)
+  - [Option 1 : Automatic Setup](#aut)
+  - [Option 2 : Manuel Setup](#man)
+3. [System Requirements](#syst)
+  - [Important Notes](#not)
+  - [Troubleshooting](#troubl)
+  - [Performance Benchmarks](#perf)
+4. [Tools](#tools)
+  - [Models](#mod)
+  - [Data](#dat)
+  - [Device](#dev)
 
 Our pipeline aims to efficiently extract dates from French administrative documents through several key steps:
 
@@ -33,7 +34,7 @@ Our pipeline aims to efficiently extract dates from French administrative docume
 The first step focuses on preparing high-quality data for NER and LLM processing:
 
 - **Asynchronous Data Collection**
-  - Downloads content from provided URLs using aiohttp
+  - Downloads content from provided URLs using ]
   - Validates file accessibility and content length (>500 chars)
   - Handles parallel downloads efficiently
 
@@ -136,13 +137,12 @@ Standardizes extracted dates into a uniform format:
     *   Supports flexible input/output paths
     *   Provides formatted accuracy statistics
 
-<a name="usage"></a>  
-## 1. Usage
+<a name="env"></a>  
+## 2. Environment Setup
 
-### Environment Setup
 
 We provide two ways to set up the environment:
-
+<a name="aut"></a>
 #### Option 1: Automatic Setup (Recommended)
 Run our setup script to automatically create and configure the environment:
 ```bash
@@ -154,6 +154,7 @@ chmod +x pipeline_environment.sh
 ```bash 
 ./pipeline_environment.sh
 ```
+<a name="man"></a>
 #### Option 2: Manuel Setup (NOT Recommended)
 If you prefer to set up manually, follow these steps:
 
@@ -184,7 +185,7 @@ modelscope download Qwen/Qwen2.5-14B-Instruct
 modelscope download Qwen/Qwen2.5-7B-Instruct
 ```
 
-<a name="overview"></a>
+<a name="syst"></a>
 ### System Requirements
 * **Operating System**: Ubuntu 22.04 or compatible Linux distribution
 * **GPU**: NVIDIA GPU with
@@ -192,13 +193,15 @@ modelscope download Qwen/Qwen2.5-7B-Instruct
   * Minimum 40GB VRAM for Qwen 14B model
 * **CUDA**: CUDA 12.1
 * **Package Manager**: Conda
-
+  
+<a name="not"></a>
 ### Important Notes
 * **Windows Compatibility**: Not guaranteed due to flash-attention dependencies
 * **Flash Attention**: For specific installation requirements of flash-attention (v2.6.3), please refer to the [official documentation](https://github.com/Dao-AILab/flash-attention)
 * **GPU Memory**: Ensure sufficient GPU memory is available before running the models
 * **Installation Issues**: If you encounter issues with flash-attention installation, try installing it separately after other dependencies
 
+<a name="troubl"></a>
 ### Troubleshooting
 If you encounter any installation issues:
 1. Ensure your CUDA drivers are properly installed
@@ -206,7 +209,7 @@ If you encounter any installation issues:
 3. Verify all dependencies are installed in the correct order
 4. For flash-attention specific issues, consult the official documentation
 
-
+<a name="perf"></a>
 ## Performance Benchmarks
 
 | Stage | Time (NVIDIA 4090)   | Memory Usage                                        |
@@ -216,17 +219,20 @@ If you encounter any installation issues:
 | LLM Selection | ~1 min per inference | 23.2GB VRAM at least for 7B, 40 Gb at least for 14B |
 | Total Pipeline | ~several hours       | 24GB VRAM peak                                      |
 
-<a name="overview"></a>
-## Acknowledgments
+<a name="tools"></a>
+## Tools
 
+<a name="mod"></a>
 ### Models
 - CamemBERT-NER by Jean-Baptiste: French NER model fine-tuned for date extraction
 - Qwen2.5 series by Alibaba: Advanced LLMs optimized for reasoning tasks
 
+<a name="dat"></a>
 ### Data
 - Datapolitics: Provided the French administrative document corpus
 
-### Tools
+<a name="dev"></a>
+### Device
 - VLLM: High-performance LLM inference engine
 - Flash Attention: Efficient attention computation
 
