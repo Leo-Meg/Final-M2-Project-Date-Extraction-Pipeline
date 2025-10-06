@@ -6,11 +6,16 @@ This repository contains the implementation of an automated date extraction syst
 
 ## Table of contents
 
-1. [Pipeline Components]
-2. [Usage]
-3. [Prerequisites](#prereq)
-4. [Installation](#install)
-5. [Execution pipeline](#pipeline)
+1. [Pipeline Components](#pipeline)
+- [Step 1 – Data Preprocessing](#step1)
+- [Step 2 – Data Entity Extraction](#step2)
+- [Step 3 – LLM-based Data Selection](#step3)
+- [Step 4 – Date Format Cleaning](#step4)
+- [Evaluation](#eval)
+3. [Usage](#usage)
+4. [Prerequisites](#prereq)
+5. [Installation](#install)
+6. [Execution pipeline](#pipeline)
 - [Step 0 – build the graph](#step0)
 - [Step 1 – Node2Vec embeddings](#step1)
 - [Step 2 – Translation & lexical embeddings](#step2)
@@ -20,8 +25,10 @@ This repository contains the implementation of an automated date extraction syst
 
 Our pipeline aims to efficiently extract dates from French administrative documents through several key steps:
 
-## Pipeline Components
+<a name="pipeline"></a>
+## 1. Pipeline Components
 
+<a name="step1"></a>
 ### Step 1. Data Preprocessing (`1_dataset_rebuild.py`)
 The first step focuses on preparing high-quality data for NER and LLM processing:
 
@@ -44,6 +51,7 @@ The first step focuses on preparing high-quality data for NER and LLM processing
     - Normalized text content
     - Raw text content
 
+<a name="step2"></a>
 ### Step 2. Date Entity Extraction (`2_ner.py`)
 Extracts candidate dates using NER:
 
@@ -61,6 +69,7 @@ Extracts candidate dates using NER:
   - Filters and validates dates
   - Maintains extraction context
 
+<a name="step3"></a>
 ### Step 3. LLM-based Date Selection (`4_llm_reference.py`)
 Uses LLM reasoning to select the most accurate publication date:
 
@@ -80,7 +89,8 @@ Uses LLM reasoning to select the most accurate publication date:
   - Robust error handling
   - Context-aware date selection
 
-### 5. Date Format Cleaning (clean_date.py)
+<a name="step4"></a>
+### 4. Date Format Cleaning (clean_date.py)
 Standardizes extracted dates into a uniform format:
 
 - **Date Pattern Recognition**
@@ -104,6 +114,7 @@ Standardizes extracted dates into a uniform format:
     * Assumes 20xx for two-digit years
     * Sets default day to 01 for month-year only dates
 
+<a name="eval"></a>
 ### 6. Evaluation (6_evaluation.py)
    Assesses the accuracy of date extraction results:
 
@@ -125,8 +136,8 @@ Standardizes extracted dates into a uniform format:
     *   Supports flexible input/output paths
     *   Provides formatted accuracy statistics
 
-  
-## Usage
+<a name="usage"></a>  
+## 1. Usage
 
 ### Environment Setup
 
@@ -173,6 +184,7 @@ modelscope download Qwen/Qwen2.5-14B-Instruct
 modelscope download Qwen/Qwen2.5-7B-Instruct
 ```
 
+<a name="overview"></a>
 ### System Requirements
 * **Operating System**: Ubuntu 22.04 or compatible Linux distribution
 * **GPU**: NVIDIA GPU with
@@ -195,8 +207,6 @@ If you encounter any installation issues:
 4. For flash-attention specific issues, consult the official documentation
 
 
-
-
 ## Performance Benchmarks
 
 | Stage | Time (NVIDIA 4090)   | Memory Usage                                        |
@@ -206,6 +216,7 @@ If you encounter any installation issues:
 | LLM Selection | ~1 min per inference | 23.2GB VRAM at least for 7B, 40 Gb at least for 14B |
 | Total Pipeline | ~several hours       | 24GB VRAM peak                                      |
 
+<a name="overview"></a>
 ## Acknowledgments
 
 ### Models
