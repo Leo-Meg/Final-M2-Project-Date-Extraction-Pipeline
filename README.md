@@ -1,6 +1,6 @@
 # Final-M2-Project-Date-Extraction-Pipeline
 
-This repository contains the implementation of an automated date extraction system for French administrative documents, developed as part of the NLP in Industry final project at Université Paris Cité M2 NLP. The other students I did this work with are Xu Sun, Dan Hou and Haeeul Hwang.
+This repository contains the implementation of an automated date extraction system for French administrative documents, developed as part of the NLP in Industry final project at Université Paris Cité M2 NLP. I do this work with three classmates : Xu Sun, Dan Hou and Haeeul Hwang.
 
 
 
